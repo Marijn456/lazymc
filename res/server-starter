@@ -3,13 +3,13 @@
 # See: https://git.io/JMIKH
 
 # Server JAR file, set this to your own
-FILE=server.jar
+FILE=Magma-1.16.5-36.2.35-c80bf803-server.jar
 
 # Trap SIGTERM, forward it to server process ID
 trap 'kill -TERM $PID' TERM INT
 
 # Start server
-java -Xms1G -Xmx1G -jar $FILE --nogui &
+java -Xms128M -Xmx5G -Dterminal.jline=false -Dterminal.ansi=true $( [[  ! -f unix_args.txt ]] && printf %s "-jar Magma-1.16.5-36.2.35-c80bf803-server.jar" || printf %s "@unix_args.txt" )
 
 # Remember server process ID, wait for it to quit, then reset the trap
 PID=$!
